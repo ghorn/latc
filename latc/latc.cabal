@@ -44,11 +44,10 @@ Library
                  hmatrix == 0.14.*,
                  containers == 0.4.*,
                  vector == 0.9.*,
-                 hashable  >= 1.1 && < 1.2,
-                 ghc-prim,
-                 QuickCheck == 2.*
+                 latc-types,
+                 ghc-prim
 
-  exposed-modules: Numeric.LATC, Numeric.LATC.NestedList, Numeric.LATC.NestedVector
+  exposed-modules: Numeric.LATC
   other-modules: 
   ghc-options: 
   ghc-prof-options: -prof -fprof-auto -fprof-cafs -rtsopts

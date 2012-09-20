@@ -111,8 +111,6 @@ import Control.Applicative (Applicative(..))
 import Data.Foldable (Foldable(..))
 import Test.QuickCheck (Arbitrary(..), listOf, vectorOf, choose)
 
-import qualified Numeric.LATC as LATC
-
 -- | A vector abstraction for lists.
 newtype Vector a = Vector {unvector :: [a]} deriving (Eq, Ord, Data, Typeable, Generic)
 
@@ -235,78 +233,6 @@ instance Arbitrary a => Arbitrary (Matrix a) where
 -- Should a Foldable instance for Matrix use a column fold or a row
 -- fold?
 
--- | Instance for @Numeric.LATC.NestedList@ vectors.
-instance LATC.Vector Vector where
-    type VBox Vector e = ()
-    fromList = fromList
-    toList = toList
-    length = length
-    vmap = vmap
-    vbinary = vbinary
-    vindex = vindex
-    vappend = vappend
-    vconcat = vconcat
-    vhead = vhead
-    vlast = vlast
-    vtail = vtail
-    vinit = vinit
-    vreverse = vreverse
-    vfoldl = vfoldl
-    vfoldl1 = vfoldl1
-    vfoldr = vfoldr
-    vfoldr1 = vfoldr1
-
--- | Instance for @Numeric.LATC.NestedList@ matrices.
-instance LATC.Matrix Matrix where
-    type MBox Matrix e = ()
-    fromLists = fromLists
-    toLists = toLists
-    size = size
-    mmap = mmap
-    transpose = transpose
-    mbinary = mbinary
-    mindex = mindex
-    mconcatrows = mconcatrows
-    mconcatcols = mconcatcols
-    mappendrows = mappendrows
-    mappendcols = mappendcols
-    minitr = minitr
-    mtailr = mtailr
-    minitc = minitc
-    mtailc = mtailc
-    mreverser = mreverser
-    mreversec = mreversec
-
--- | Instance for @Numeric.LATC.NestedList@
-instance LATC.MV Matrix Vector where
-    type MVBox Matrix Vector e = ()
-    fromCols = fromCols
-    toCols = toCols
-    fromRows = fromRows
-    toRows = toRows
-    mCol = mCol
-    mRow = mRow
-    mheadr = mheadr
-    mlastr = mlastr
-    mheadc = mheadc
-    mlastc = mlastc
-    mfoldlr = mfoldlr
-    mfoldl1r = mfoldl1r
-    mfoldlc = mfoldlc
-    mfoldl1c = mfoldl1c
-    mfoldrr = mfoldrr
-    mfoldr1r = mfoldr1r
-    mfoldrc = mfoldrc
-    mfoldr1c = mfoldr1c
-
--- | Instance for @Numeric.LATC.NestedList@
-instance LATC.LinAlg Matrix Vector where
-    type LinAlgBox Matrix Vector e = Num e 
-    mv = matvec
-    vm = vecmat
-    mm = matmat
-    inner = inner
-    outer = outer
 
 -------- Vectors
 

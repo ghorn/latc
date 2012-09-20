@@ -32,6 +32,12 @@ module Numeric.LATC where
 
 import GHC.Prim (Constraint)
 
+-- Numeric.LATC.NestedList backend
+import qualified Numeric.LATC.NestedList as NL
+
+-- Numeric.LATC.NestedVector backend
+import qualified Numeric.LATC.NestedVector as NV
+
 -- Data.Vector backend
 
 import qualified Data.Vector as DV
@@ -416,6 +422,114 @@ class Matrix m => SMatrix m where
 -- Below are instances for existing backends.  I'm trying to avoid
 -- orphan instances, but these would be a lot nicer in a different
 -- module, one for each backend.
+
+-- | Instance for @Numeric.LATC.NestedList@ vectors.
+instance Vector NL.Vector where
+    type VBox NL.Vector e = ()
+    fromList = NL.fromList
+    toList = NL.toList
+    length = NL.length
+    vmap = NL.vmap
+    vbinary = NL.vbinary
+    vindex = NL.vindex
+    vappend = NL.vappend
+    vconcat = NL.vconcat
+    vhead = NL.vhead
+    vlast = NL.vlast
+    vtail = NL.vtail
+    vinit = NL.vinit
+    vreverse = NL.vreverse
+    vfoldl = NL.vfoldl
+    vfoldl1 = NL.vfoldl1
+    vfoldr = NL.vfoldr
+    vfoldr1 = NL.vfoldr1
+
+-- | Instance for @Numeric.LATC.NestedList@ matrices.
+instance Matrix NL.Matrix where
+    type MBox NL.Matrix e = ()
+    fromLists = NL.fromLists
+    toLists = NL.toLists
+    size = NL.size
+    mmap = NL.mmap
+    transpose = NL.transpose
+    mbinary = NL.mbinary
+    mindex = NL.mindex
+    mconcatrows = NL.mconcatrows
+    mconcatcols = NL.mconcatcols
+    mappendrows = NL.mappendrows
+    mappendcols = NL.mappendcols
+    minitr = NL.minitr
+    mtailr = NL.mtailr
+    minitc = NL.minitc
+    mtailc = NL.mtailc
+    mreverser = NL.mreverser
+    mreversec = NL.mreversec
+
+-- | Instance for @Numeric.LATC.NestedList@
+instance MV NL.Matrix NL.Vector where
+    type MVBox NL.Matrix NL.Vector e = ()
+    fromCols = NL.fromCols
+    toCols = NL.toCols
+    fromRows = NL.fromRows
+    toRows = NL.toRows
+    mCol = NL.mCol
+    mRow = NL.mRow
+    mheadr = NL.mheadr
+    mlastr = NL.mlastr
+    mheadc = NL.mheadc
+    mlastc = NL.mlastc
+    mfoldlr = NL.mfoldlr
+    mfoldl1r = NL.mfoldl1r
+    mfoldlc = NL.mfoldlc
+    mfoldl1c = NL.mfoldl1c
+    mfoldrr = NL.mfoldrr
+    mfoldr1r = NL.mfoldr1r
+    mfoldrc = NL.mfoldrc
+    mfoldr1c = NL.mfoldr1c
+
+-- | Instance for @Numeric.LATC.NestedList@
+instance LinAlg NL.Matrix NL.Vector where
+    type LinAlgBox NL.Matrix NL.Vector e = Num e 
+    mv = NL.matvec
+    vm = NL.vecmat
+    mm = NL.matmat
+    inner = NL.inner
+    outer = NL.outer
+
+-- | Instance for @Numeric.LATC.NestedVector@ matrices.
+instance Matrix NV.Matrix where
+    type MBox NV.Matrix e = ()
+    fromLists = NV.fromLists
+    toLists = NV.toLists
+    size = NV.size
+    mmap = NV.mmap
+    transpose = NV.transpose
+    mbinary = NV.mbinary
+    mindex = NV.mindex
+    mappendrows = NV.mappendrows
+    mappendcols = NV.mappendcols
+
+-- | Instance for @Numeric.LATC.NestedVector@
+instance MV NV.Matrix DV.Vector where
+    type MVBox NV.Matrix DV.Vector e = ()
+    fromCols = NV.fromCols
+    toCols = NV.toCols
+    mCol = NV.mCol
+    fromRows = NV.fromRows
+    toRows = NV.toRows
+    mRow = NV.mRow
+
+-- | Instance for @Numeric.LATC.NestedVector@
+instance LinAlg NV.Matrix DV.Vector where
+    type LinAlgBox NV.Matrix DV.Vector e = Num e 
+    mv = NV.matvec
+    vm = NV.vecmat
+    mm = NV.matmat
+    inner = NV.inner
+    outer = NV.outer
+
+
+
 
 -- | @Data.Vector@ instance
 instance Vector DV.Vector where
