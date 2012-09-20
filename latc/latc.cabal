@@ -40,9 +40,9 @@ source-repository head
 
 Library
   build-depends: base == 4.*,
-                 repa == 3.2.*,
+--                 repa == 3.2.*,
                  hmatrix == 0.14.*,
-                 containers == 0.4.*,
+                 containers == 0.5.*,
                  vector == 0.9.*,
                  latc-types,
                  ghc-prim
