@@ -291,6 +291,11 @@ class (Matrix m, Vector v) => MV m v where
     mCol :: MatVec m v e => m e -> Int -> v e
     default mCol :: (Matrix m, Vector v, MBox m e, VBox v e, MVBox m v e) => m e -> Int -> v e
     mCol m i = fromList $ (DL.transpose $ toLists m) P.!! i
+    -- | Flatten a matrix into a vector (row major)
+    -- matrix: @flatten (fromLists [[1,2],[3,4]]) == fromList [1,2,3,4]@
+    flatten :: MatVec m v e => m e -> v e
+    default flatten :: (Matrix m, Vector v, MBox m e, VBox v e, MVBox m v e) => m e -> v e
+    flatten = vconcat . toRows
 
     -- Functional usage of matrices -- folds etc. depend on a related
     -- @Vector@ type
